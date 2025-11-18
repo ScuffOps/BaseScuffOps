@@ -1,11 +1,11 @@
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { LogEntry } from "@/entities/LogEntry";
 import { Content } from "@/entities/Content";
 import MetricCard from "../components/shared/MetricCard";
 import StatusChip from "../components/shared/StatusChip";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Play, Music4, Timer, Users as UsersIcon, TrendingUp, Video } from "lucide-react";
+import { Play, Youtube, Music4, Timer, Users as UsersIcon, TrendingUp, Video, Folder } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
@@ -108,12 +108,12 @@ export default function Dashboard() {
           <div className="flex-1 w-full">
             <Card className="glass-card text-white">
               <CardContent className="p-6">
-                <h1 className="md:text-left text-center mr-1 mb-1 text-xl font-light no-underline lowercase">
-                  🞮﹒──··𖩤𖩣··──﹒🞮
-                  <br className="md:hidden" />
-                  <span className="mx-2">welcome home  ♡</span>
-                  <br className="md:hidden" />
-                  🞮﹒──··𖩤𖩣··──﹒🞮
+                <h1 className="bg-transparent mr-1 mb-1 text-xl font-semibold text-center underline lowercase md:text-left">🞮﹒──··𖩤𖩣··──﹒🞮
+welcome home ♡
+🞮﹒──··𖩤𖩣··──﹒🞮
+
+
+
                 </h1>
 
                 <p className="md:text-left text-center mt-4 text-lg font-thin no-underline">
