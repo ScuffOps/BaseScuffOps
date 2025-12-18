@@ -107,7 +107,7 @@ export default function Dashboard() {
           {/* Right: Hero panel */}
           <div className="flex-1 w-full">
             <Card className="glass-card text-white">
-              <CardContent className="p-6">
+              <CardContent className="mx-32 my-1 px-8 py-6">
                 <h1 className="bg-transparent mr-1 mb-1 text-xl font-semibold text-center underline lowercase md:text-left">🞮﹒──··𖩤𖩣··──﹒🞮
 welcome home ♡
 🞮﹒──··𖩤𖩣··──﹒🞮
