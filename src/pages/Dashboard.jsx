@@ -115,7 +115,7 @@ export default function Dashboard() {
                 </h1>
 
                 <p className="md:text-left text-center mt-4 text-lg font-thin no-underline">
-                  ˑ.˚⊹ analytics﹠content at a glance to make the most out of your chaos ⊹˚.ˑ
+                  ˑ.˚⊹ your ops at a glance to make the most out of your chaos ⊹˚.ˑ
                 </p>
 
                 <div className="mt-6 flex flex-col gap-3 w-full sm:w-auto">
