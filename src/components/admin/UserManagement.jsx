@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { User } from '@/entities/User';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -8,14 +7,17 @@ import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Info, CheckCircle, Loader2 } from 'lucide-react';
+import { Info, Save, Loader2 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
+import { useToast } from '@/components/ui/use-toast';
 
 export default function UserManagement() {
   const [users, setUsers] = useState([]);
   const [editableUsers, setEditableUsers] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [updateStatus, setUpdateStatus] = useState({ id: null, loading: false, success: false, error: "" });
+  const [isSaving, setIsSaving] = useState(false);
+  const [hasChanges, setHasChanges] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     loadUsers();
@@ -43,20 +45,45 @@ export default function UserManagement() {
         [field]: value
       }
     }));
+    setHasChanges(true);
   };
 
-  const handleUpdateUser = async (userId) => {
-    setUpdateStatus({ id: userId, loading: true, success: false, error: "" });
+  const handleSaveAll = async () => {
+    setIsSaving(true);
+    const changedUsers = users.filter(user => {
+      const edited = editableUsers[user.id];
+      return edited && (edited.role !== user.role || edited.active !== user.active);
+    });
+
+    if (changedUsers.length === 0) {
+      toast({
+        title: "No changes",
+        description: "No user data was modified.",
+      });
+      setIsSaving(false);
+      return;
+    }
+
     try {
-      const dataToUpdate = editableUsers[userId];
-      await User.update(userId, dataToUpdate);
-      setUpdateStatus({ id: userId, loading: false, success: true, error: "" });
-      setTimeout(() => setUpdateStatus({ id: null, loading: false, success: false, error: "" }), 1500);
+      await Promise.all(
+        changedUsers.map(user => User.update(user.id, editableUsers[user.id]))
+      );
+      
+      toast({
+        title: "Success",
+        description: `Updated ${changedUsers.length} user${changedUsers.length > 1 ? 's' : ''} successfully.`,
+      });
+      
+      setHasChanges(false);
+      await loadUsers();
     } catch (error) {
-      console.error("Failed to update user:", error);
-      setUpdateStatus({ id: userId, loading: false, success: false, error: error?.message || "Update failed" });
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error?.message || "Failed to save changes.",
+      });
     } finally {
-      loadUsers(); // Refresh data
+      setIsSaving(false);
     }
   };
 
@@ -77,10 +104,31 @@ export default function UserManagement() {
   return (
     <Card className="bg-slate-900/80 border-slate-800/60 !rounded-[var(--panel-radius)]">
       <CardHeader>
-        <CardTitle>Manage Users</CardTitle>
-        <CardDescription>
-          Edit roles and status for all users in the system. New users must be invited via the platform settings.
-        </CardDescription>
+        <div className="flex items-center justify-between">
+          <div>
+            <CardTitle>Manage Users</CardTitle>
+            <CardDescription>
+              Edit roles and status for all users in the system. New users must be invited via the platform settings.
+            </CardDescription>
+          </div>
+          <Button 
+            onClick={handleSaveAll} 
+            disabled={!hasChanges || isSaving}
+            className="glass-button"
+          >
+            {isSaving ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Saving...
+              </>
+            ) : (
+              <>
+                <Save className="w-4 h-4 mr-2" />
+                Save Changes
+              </>
+            )}
+          </Button>
+        </div>
       </CardHeader>
       <CardContent>
         <Alert className="mb-6">
@@ -99,7 +147,6 @@ export default function UserManagement() {
                 <TableHead>Role</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Last Login</TableHead>
-                <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -143,25 +190,6 @@ export default function UserManagement() {
                   </TableCell>
                   <TableCell>
                     {user.lastLogin ? formatDistanceToNow(new Date(user.lastLogin), { addSuffix: true }) : 'Never'}
-                  </TableCell>
-                  <TableCell>
-                    <Button 
-                      onClick={() => handleUpdateUser(user.id)} 
-                      disabled={updateStatus.loading && updateStatus.id === user.id}
-                      size="sm"
-                    >
-                      {updateStatus.loading && updateStatus.id === user.id ? (
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                      ) : (
-                        <CheckCircle className="w-4 h-4" />
-                      )}
-                    </Button>
-                    {updateStatus.id === user.id && updateStatus.success && !updateStatus.loading && (
-                      <span className="ml-2 text-xs text-emerald-400">Saved</span>
-                    )}
-                    {updateStatus.id === user.id && updateStatus.error && !updateStatus.loading && (
-                      <span className="ml-2 text-xs text-rose-400">{updateStatus.error}</span>
-                    )}
                   </TableCell>
                 </TableRow>
               ))}
