@@ -108,11 +108,9 @@ export default function Dashboard() {
           <div className="flex-1 w-full">
             <Card className="glass-card text-white">
               <CardContent className="mx-32 my-1 px-8 py-6">
-                <h1 className="bg-transparent mr-1 mb-1 text-xl font-semibold text-center lowercase md:text-center">🞮﹒──··ꔫ··──﹒🞮 welcome home 
-🞮﹒──··ꔫ··──﹒🞮
-
-
-
+                <h1 className="bg-transparent mr-1 mb-1 text-xl font-semibold text-center lowercase md:text-center">🞮﹒──··ꔫ··──﹒🞮 <p> welcome home </p>
+                <p>
+🞮﹒──··ꔫ··──﹒🞮</p>
 
                 </h1>
 
