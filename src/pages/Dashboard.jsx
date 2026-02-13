@@ -96,7 +96,7 @@ export default function Dashboard() {
   return (
     <div className="p-6 space-y-8 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="bg-main-gradient rounded-[var(--panel-radius)] p-8 text-white">
+      <div className="bg-main-gradient text-white p-8 rounded-[var(--panel-radius)]">
         <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
           {/* Left: Image */}
           <img
@@ -107,7 +107,7 @@ export default function Dashboard() {
           {/* Right: Hero panel */}
           <div className="flex-1 w-full">
             <Card className="glass-card text-white">
-              <CardContent className="mx-32 my-1 px-8 py-6">
+              <CardContent className="mx-10 my-1 pr-6 pl-6">
                 <h1 className="bg-transparent mr-1 mb-1 text-xl font-semibold text-center lowercase md:text-center">🞮﹒──··ꔫ··──﹒🞮 <p> welcome home </p>
                 <p>
 🞮﹒──··ꔫ··──﹒🞮</p>
