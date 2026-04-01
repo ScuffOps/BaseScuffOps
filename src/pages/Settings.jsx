@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -8,6 +7,7 @@ import {
     User, Task, Idea, LogEntry, Commission, BrandAsset, License, TeamMember, Contact, 
     MedDose, Settings, Content, Campaign 
 } from '@/entities/all';
+import { base44 } from '@/api/base44Client';
 import { UploadFile } from '@/integrations/Core';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -393,7 +393,7 @@ export default function SettingsPage() {
             <div className="p-4 rounded-lg border border-slate-700/60 bg-slate-900/40">
               <p className="text-sm text-slate-300 mb-3">Sign-in Actions</p>
               <div className="flex flex-wrap gap-3">
-                <Button onClick={() => User.loginWithRedirect(window.location.href)} className="!rounded-[var(--button-radius)]">
+                <Button onClick={() => base44.auth.redirectToLogin(window.location.href)} className="!rounded-[var(--button-radius)]">
                   Sign in with Google
                 </Button>
                 <Button variant="outline" onClick={() => User.logout()} className="!rounded-[var(--button-radius)]">
