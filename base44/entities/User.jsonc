@@ -1,0 +1,48 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "leadmod",
+        "mod",
+        "viewer",
+        "user"
+      ],
+      "default": "user"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "bio": {
+      "type": "string"
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "avatar": {
+      "type": "string",
+      "format": "uri"
+    },
+    "timezone": {
+      "type": "string"
+    },
+    "accent_primary": {
+      "type": "string"
+    },
+    "accent_secondary": {
+      "type": "string"
+    },
+    "user_notes": {
+      "type": "string",
+      "description": "Internal notes about this user, visible to admin/leadmod only"
+    },
+    "lastLogin": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

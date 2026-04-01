@@ -1,0 +1,36 @@
+{
+  "name": "HandbookSection",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "section_type": {
+      "type": "string",
+      "enum": [
+        "philosophy",
+        "rule",
+        "workflow",
+        "command",
+        "tool"
+      ],
+      "default": "rule"
+    },
+    "display_order": {
+      "type": "number",
+      "default": 10
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "title",
+    "content",
+    "section_type"
+  ]
+}

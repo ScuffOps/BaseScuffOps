@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
@@ -16,7 +15,8 @@ import {
   Home,
   Shield,
   ListTodo,
-  Folder } from
+  Folder,
+  Users } from
 "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -26,6 +26,7 @@ const navigationItems = [
 { title: "Home", url: createPageUrl("Home"), icon: Home },
 { title: "Dashboard", url: createPageUrl("Dashboard"), icon: LayoutDashboard },
 { title: "Tasklist", url: createPageUrl("Tasklist"), icon: ListTodo },
+{ title: "Team", url: createPageUrl("Team"), icon: Users },
 { title: "Ideas", url: createPageUrl("Ideas"), icon: Lightbulb },
 { title: "Commissions", url: createPageUrl("Commissions"), icon: Paintbrush },
 { title: "Brand Library", url: createPageUrl("Brand"), icon: FolderKanban },

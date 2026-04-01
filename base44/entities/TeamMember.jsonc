@@ -1,0 +1,87 @@
+{
+  "name": "TeamMember",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "leadmod",
+        "mod",
+        "viewer"
+      ],
+      "default": "mod"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive"
+      ],
+      "default": "active"
+    },
+    "bio": {
+      "type": "string"
+    },
+    "profileUrl": {
+      "type": "string",
+      "format": "uri"
+    },
+    "user_email": {
+      "type": "string",
+      "description": "Linked app user email"
+    },
+    "contacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "availability": {
+      "type": "object",
+      "description": "Nested: day -> time -> status (free/on_call/busy/dnd)",
+      "additionalProperties": true
+    },
+    "assigned_shifts": {
+      "type": "object",
+      "description": "Admin-assigned shifts: day -> time blocks array",
+      "additionalProperties": true
+    },
+    "onboarding_tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "deepLink": {
+            "type": "string"
+          },
+          "completed": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "name",
+    "role",
+    "status"
+  ]
+}
