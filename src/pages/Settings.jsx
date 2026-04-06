@@ -106,6 +106,8 @@ export default function SettingsPage() {
   const TIMEZONES = [
     'UTC',
     'America/Los_Angeles',
+    'America/Denver',
+    'America/Phoenix',
     'America/New_York',
     'America/Chicago',
     'Europe/London',
